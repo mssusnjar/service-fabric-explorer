@@ -99,15 +99,9 @@ export class BackupComponent extends ServiceBaseControllerDirective {
               this.service.serviceBackupConfigurationInfoCollection.collection[0].raw.Kind === 'Service' &&
               this.service.serviceBackupConfigurationInfoCollection.collection[0].raw.PolicyInheritedFrom === 'Service' &&
               this.service.serviceBackupConfigurationInfoCollection.collection[0].raw.SuspensionInfo.IsSuspended === false,
-        {
-          title: 'Confirm Service Backup Suspension'
-        },
-        {
-          inputs: {
-              message: `Suspend Service backup for ${this.service.name} ?`,
-              confirmationKeyword: this.service.name
-          }
-        }));
+        'Confirm Service Backup Suspension',
+        `Suspend Service backup for ${this.service.name} ?`,
+        this.service.name));
 
       this.actions.add(new ActionWithConfirmationDialog(
         this.data.dialog,
@@ -121,15 +115,9 @@ export class BackupComponent extends ServiceBaseControllerDirective {
               this.service.serviceBackupConfigurationInfoCollection.collection[0].raw.Kind === 'Service' &&
               this.service.serviceBackupConfigurationInfoCollection.collection[0].raw.PolicyInheritedFrom === 'Service' &&
               this.service.serviceBackupConfigurationInfoCollection.collection[0].raw.SuspensionInfo.IsSuspended === true,
-        {
-          title: 'Confirm Service Backup Resumption'
-        },
-        {
-          inputs: {
-              message: `Resume Service backup for ${this.service.name} ?`,
-              confirmationKeyword: this.service.name
-          }
-        }));
+        'Confirm Service Backup Resumption',
+        `Resume Service backup for ${this.service.name} ?`,
+        this.service.name));
     }
   }
 

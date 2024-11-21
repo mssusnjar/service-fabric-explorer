@@ -68,9 +68,7 @@ export class TimeseriesComponent implements AfterViewInit, OnChanges, OnDestroy,
     chart: {
       backgroundColor: null,
       height: 200,
-      zooming: {
-        type: 'x'
-      },
+      zoomType: 'x',
       resetZoomButton: {
         position: {
           align: 'left',

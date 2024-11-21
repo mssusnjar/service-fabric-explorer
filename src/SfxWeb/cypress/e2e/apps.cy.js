@@ -18,8 +18,6 @@ context('apps list page', () => {
                 cy.contains('Applications').click();
             })
 
-            cy.get('[data-cy=armWarning]').should('exist');
-
             cy.get('[data-cy=appslist]').within(() => {
                 cy.contains(appName)
             })
@@ -66,7 +64,7 @@ context('apps list page', () => {
 
       cy.url().should('include', `/#/apps/apptypes`)
       cy.get('[data-cy=active-app-type]').within(() => {
-        cy.contains("2")
+        cy.contains("1")
       })
 
       cy.get('[data-cy=inactive-app-type]').within(() => {

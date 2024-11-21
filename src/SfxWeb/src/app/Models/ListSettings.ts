@@ -1,3 +1,4 @@
+import { HtmlUtils } from '../Utils/HtmlUtils';
 import { Utils } from '../Utils/Utils';
 import { HyperLinkComponent } from '../modules/detail-list-templates/hyper-link/hyper-link.component';
 import { CopyTextComponent } from '../modules/detail-list-templates/copy-text/copy-text.component';
@@ -10,7 +11,6 @@ import { ITextAndBadge } from '../Utils/ValueResolver';
 import { ShortenComponent } from '../modules/detail-list-templates/shorten/shorten.component';
 import { HealthbadgeComponent } from '../modules/detail-list-templates/healthbadge/healthbadge.component';
 import { IConcurrentEvents } from './eventstore/rcaEngine';
-import { ArmManagedComponent } from '../modules/detail-list-templates/arm-managed/arm-managed.component';
 
 // -----------------------------------------------------------------------------
 // Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -302,22 +302,10 @@ export class ListColumnSettingForLink extends ListColumnSetting {
     public constructor(
         propertyPath: string,
         displayName: string,
-        public href: (item: any) => string,
-        public linkName?: string,
-        public isExternal: boolean = false,
-    ) {
+        public href: (item: any) => string) {
         super(propertyPath, displayName, {
             enableFilter: false,
         });
-    }
-}
-
-export class ListColumnSettingForArmManaged extends ListColumnSetting {
-    template = ArmManagedComponent;
-    public constructor() {
-        super('isArmManaged', 'Arm Managed', {
-            enableFilter: true
-        })
     }
 }
 

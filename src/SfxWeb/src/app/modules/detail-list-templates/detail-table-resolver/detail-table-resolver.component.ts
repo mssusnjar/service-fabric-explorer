@@ -20,7 +20,7 @@ export class DetailTableResolverComponent implements OnInit {
   @ViewChild(ResolverDirective, {static: true}) templateHost: ResolverDirective;
 
 
-  constructor() { }
+  constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
 
   ngOnInit() {
     this.loadComponent();
@@ -28,9 +28,12 @@ export class DetailTableResolverComponent implements OnInit {
 
 
   loadComponent() {
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.template);
+
     const viewContainerRef = this.templateHost.viewContainerRef;
     viewContainerRef.clear();
-    const componentRef = viewContainerRef.createComponent(this.template);
+
+    const componentRef = viewContainerRef.createComponent(componentFactory);
     (componentRef.instance as DetailBaseComponent).item = this.item;
     (componentRef.instance as DetailBaseComponent).listSetting = this.setting;
     (componentRef.instance as DetailBaseComponent).cache = this.cache;

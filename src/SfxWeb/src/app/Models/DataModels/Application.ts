@@ -1,7 +1,5 @@
-import {
-    IRawApplication, IRawApplicationHealth, IRawApplicationManifest, IRawDeployedApplicationHealthState,
-    IRawApplicationUpgradeProgress, IRawApplicationBackupConfigurationInfo
-} from '../RawDataTypes';
+import { IRawApplication, IRawApplicationHealth, IRawApplicationManifest, IRawDeployedApplicationHealthState,
+         IRawApplicationUpgradeProgress, IRawApplicationBackupConfigurationInfo, IRawUpgradeDomainProgress } from '../RawDataTypes';
 import { DataModelBase, IDecorators } from './Base';
 import { HtmlUtils } from 'src/app/Utils/HtmlUtils';
 import { ServiceTypeCollection, ApplicationBackupConfigurationInfoCollection } from './collections/Collections';
@@ -78,14 +76,6 @@ export class Application extends DataModelBase<IRawApplication> {
         return RoutesService.getAppTypeViewPath(this.raw.TypeName);
     }
 
-    public get resourceId(): string {
-        return this.raw.ApplicationMetadata?.ArmMetadata?.ArmResourceId;
-    }
-
-    public get isArmManaged(): boolean{
-        return this.resourceId?.length > 0;
-    }
-
     public delete(): Observable<any> {
         const compose = this.raw.ApplicationDefinitionKind === Constants.ComposeApplicationDefinitionKind;
         const action = compose ? this.data.restClient.deleteComposeApplication(this.id) : this.data.restClient.deleteApplication(this.id);
@@ -120,11 +110,6 @@ export class Application extends DataModelBase<IRawApplication> {
         if (this.raw.TypeName === Constants.SystemAppTypeName) {
             return;
         }
-
-        if (this.isArmManaged) {
-            return;
-        }
-
         this.actions.add(new ActionWithConfirmationDialog(
             this.data.dialog,
             'deleteApplication',
@@ -132,16 +117,9 @@ export class Application extends DataModelBase<IRawApplication> {
             'Deleting...',
             () => this.delete(),
             () => true,
-            {
-                title: 'Confirm Application Deletion',
-            },
-            {
-                inputs: {
-                    message: `Delete application ${this.name} from cluster ${window.location.host}?`,
-                    confirmationKeyword: this.name,
-                }
-            }
-            ));
+            'Confirm Application Deletion',
+            `Delete application ${this.name} from cluster ${window.location.host}?`,
+            this.name));
     }
 
     private setAdvancedActions(): void {

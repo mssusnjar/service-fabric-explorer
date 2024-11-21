@@ -43,10 +43,7 @@ export class ActionCreateBackupPolicyComponent implements OnInit {
     }else{
       data.Schedule.RunDays = [];
     }
-    
-    if(data.Storage.StorageKind === 'ManagedIdentityAzureBlobStore' && data.Storage.ManagedIdentityClientId === ""){
-      delete data.Storage.ManagedIdentityClientId;
-    }
+
     (this.isUpdateOperation ? this.dataService.restClient.updateBackupPolicy(data) :
                               this.dataService.restClient.createBackupPolicy(data)  ).subscribe( () => {
                                 this.dialogRef.close();

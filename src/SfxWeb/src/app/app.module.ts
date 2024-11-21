@@ -19,7 +19,6 @@ import { TelemetrySnackBarComponent } from './telemetry-snack-bar/telemetry-snac
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AppInsightsErrorHandler } from './error-handling';
 import { StandaloneIntegrationService } from './services/standalone-integration.service';
-import { ActionDialogModule } from './modules/action-dialog/action-dialog.module';
 
 @NgModule({
   declarations: [
@@ -38,8 +37,7 @@ import { ActionDialogModule } from './modules/action-dialog/action-dialog.module
     ReactiveFormsModule,
     NgbTooltipModule,
     MatSnackBarModule,
-    DebuggingModule,
-    ActionDialogModule
+    DebuggingModule
   ],
 
   providers: [

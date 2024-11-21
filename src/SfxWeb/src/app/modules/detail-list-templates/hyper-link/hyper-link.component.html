@@ -4,7 +4,6 @@
   <span style="white-space: pre;">{{value}}</span>
 </ng-template>
 
-<div style="white-space: pre;"  *ngIf="link; else internal"> 
-  <a *ngIf="!listSetting.isExternal" [routerLink]="link"> {{value}} </a>
-  <a *ngIf="listSetting.isExternal" [href]="link" target="_blank"> {{value}} </a>
-</div>
+<a *ngIf="link; else internal" [routerLink]="link">
+  <a style="white-space: pre;" [routerLink]="link" > {{value}} </a>
+</a>

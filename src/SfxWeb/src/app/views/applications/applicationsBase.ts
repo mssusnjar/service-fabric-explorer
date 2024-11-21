@@ -11,7 +11,6 @@ export class ApplicationsBaseControllerDirective extends BaseControllerDirective
 
     apps: ApplicationCollection;
     usage: IAppTypeUsage;
-    hasArmManagedAppType: boolean;
 
     constructor(protected data: DataService, injector: Injector) {
       super(injector);
@@ -26,7 +25,6 @@ export class ApplicationsBaseControllerDirective extends BaseControllerDirective
           this.data.appTypeGroups.ensureInitialized(true, messageHandler).pipe(mergeMap(() => {
             return this.data.appTypeGroups.getAppTypeUsage().pipe(map(usage => {
               this.usage = usage;
-              this.hasArmManagedAppType = this.usage.activeAppTypes.concat(this.usage.inactiveAppTypes).some(appType => appType.isArmManaged);
             }))
           }))
         ]);

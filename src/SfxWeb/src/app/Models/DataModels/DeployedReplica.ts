@@ -135,15 +135,9 @@ export class DeployedReplica extends DataModelBase<IRawDeployedReplica> {
             'Restarting',
             () => this.restartReplica(),
             () => true,
-            {
-                title:  `Confirm Replica Restart`
-            },
-            {
-                inputs: {
-                    message: `Restart Replica for ${serviceName}`,
-                    confirmationKeyword: 'confirm'
-                }
-            }
+            `Confirm Replica Restart`,
+            `Restart Replica for ${serviceName}`,
+            'confirm'
         ));
     }
 }
