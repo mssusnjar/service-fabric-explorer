@@ -3,7 +3,7 @@ import { IRawDeployedReplica, IRawPartition, IRawDeployedReplicaDetail, IRawLoad
 import { DataService } from 'src/app/services/data.service';
 import { DeployedServicePackage } from './DeployedServicePackage';
 import { IdUtils } from 'src/app/Utils/IdUtils';
-import { ServiceKindRegexes, SortPriorities } from 'src/app/Common/Constants';
+import { ServiceKindRegexes, SortPriorities, UnicodeConstants } from 'src/app/Common/Constants';
 import { TimeUtils } from 'src/app/Utils/TimeUtils';
 import { IResponseMessageHandler, ResponseMessageHandlers } from 'src/app/Common/ResponseMessageHandlers';
 import { HtmlUtils } from 'src/app/Utils/HtmlUtils';
@@ -73,12 +73,21 @@ export class DeployedReplica extends DataModelBase<IRawDeployedReplica> {
     }
 
     public get role(): string {
-        if (this.partition && this.partition.PartitionStatus === 'Reconfiguring') {
-            return `Reconfiguring - Target Role: ${this.raw.ReplicaRole}`;
+        const { PartitionStatus } = this.partition;
+        const { ReconfigurationInformation, ReplicaRole } = this.raw;
+        const PreviousReplicaRole = ReconfigurationInformation.PreviousConfigurationRole;
+    
+        if (PartitionStatus !== 'Reconfiguring') {
+            return ReplicaRole;
         }
-
-        return this.raw.ReplicaRole;
+    
+        if (!PreviousReplicaRole || PreviousReplicaRole === 'None') {
+            return `Reconfiguring - Target Role: ${ReplicaRole}`;
+        }
+    
+        return `Reconfiguring: ${PreviousReplicaRole} ${UnicodeConstants.RightArrow} ${ReplicaRole}`;
     }
+
 
     public get viewPath(): string {
         return RoutesService.getDeployedReplicaViewPath(this.parent.parent.parent.name, this.parent.parent.id, this.parent.id, this.parent.servicePackageActivationId, this.raw.PartitionId, this.id);
