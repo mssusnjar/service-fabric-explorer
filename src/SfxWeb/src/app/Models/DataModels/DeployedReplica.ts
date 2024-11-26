@@ -87,7 +87,6 @@ export class DeployedReplica extends DataModelBase<IRawDeployedReplica> {
         return `Reconfiguring: ${PreviousReplicaRole} ${UnicodeConstants.RightArrow} ${ReplicaRole}`;
     }
 
-
     public get viewPath(): string {
         return RoutesService.getDeployedReplicaViewPath(this.parent.parent.parent.name, this.parent.parent.id, this.parent.id, this.parent.servicePackageActivationId, this.raw.PartitionId, this.id);
     }
