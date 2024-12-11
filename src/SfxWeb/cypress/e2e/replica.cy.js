@@ -139,7 +139,7 @@ context('replica', () => {
             addRoute("replicaInfo", "replica-page/stateful-replica-reconfiguration.json", apiUrl(`${baseUrl}/$/GetReplicas/${replicaId}?*`))
             cy.wait(waitRequest)
 
-            cy.get('[data-cy="tree-panel"]').contains('Reconfiguring: Secondary ➜ Primary');
+            cy.get('[data-cy="tree-panel"]').contains('Reconfiguring: ActiveSecondary ➜ Primary');
         })
     })
 
